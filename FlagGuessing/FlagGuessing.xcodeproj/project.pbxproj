@@ -11,6 +11,7 @@
 		74D0B6AE2B9DF64000A16360 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D0B6AD2B9DF64000A16360 /* ContentView.swift */; };
 		74D0B6B02B9DF64200A16360 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74D0B6AF2B9DF64200A16360 /* Assets.xcassets */; };
 		74D0B6B32B9DF64200A16360 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74D0B6B22B9DF64200A16360 /* Preview Assets.xcassets */; };
+		74D0B6BA2B9E8B2C00A16360 /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D0B6B92B9E8B2C00A16360 /* PracticeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		74D0B6AD2B9DF64000A16360 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		74D0B6AF2B9DF64200A16360 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		74D0B6B22B9DF64200A16360 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		74D0B6B92B9E8B2C00A16360 /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +53,7 @@
 		74D0B6AA2B9DF64000A16360 /* FlagGuessing */ = {
 			isa = PBXGroup;
 			children = (
+				74D0B6B92B9E8B2C00A16360 /* PracticeView.swift */,
 				74D0B6AB2B9DF64000A16360 /* FlagGuessingApp.swift */,
 				74D0B6AD2B9DF64000A16360 /* ContentView.swift */,
 				74D0B6AF2B9DF64200A16360 /* Assets.xcassets */,
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				74D0B6AE2B9DF64000A16360 /* ContentView.swift in Sources */,
+				74D0B6BA2B9E8B2C00A16360 /* PracticeView.swift in Sources */,
 				74D0B6AC2B9DF64000A16360 /* FlagGuessingApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

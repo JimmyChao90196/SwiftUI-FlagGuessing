@@ -9,78 +9,123 @@ import SwiftUI
 
 struct ContentView: View {
     
-    let gradA = LinearGradient(colors: [.red, .green], startPoint: .bottom, endPoint: .top)
-    let gradB = LinearGradient(
-        stops: [
-            Gradient.Stop(color: .red, location: 0.1),
-            Gradient.Stop(color: .blue, location: 0.9)],
-        startPoint: .topLeading,
-        endPoint: .bottomTrailing)
-    let gradC = LinearGradient(
-        stops: [
-            .init(color: .yellow, location: 0.1),
-            .init(color: .cyan, location: 0.9)],
-        startPoint: .topTrailing,
-        endPoint: .bottomLeading)
+    @State private var showingAlert = false
+    @State private var scoreTitle = ""
+    @State private var score = 0
+    @State private var round = 0
+    @State private var scoreMessage = ""
     
-    let gradD = RadialGradient(
-        colors: [.brown, .purple],
-        center: .center,
-        startRadius: 20,
-        endRadius: 330)
+    @State private var countries = [
+        "Estonia",
+        "France",
+        "Germany",
+        "Ireland",
+        "Italy",
+        "Nigeria",
+        "Poland",
+        "Spain",
+        "UK",
+        "Ukraine",
+        "US"
+    ]
     
-    let gradE = AngularGradient(colors: [.green, .white, .green], center: .center)
-    
-    
+    @State private var randomIndex = Int.random(in: 0...2)
+
     var body: some View {
         ZStack {
-            VStack {
-                gradE
-                gradB
-                gradD
-            }
+            LinearGradient(
+                colors: [.blue, .black],
+                startPoint: .top,
+                endPoint: .bottom)
             
-            Color.green
-                .frame(
-                    width: 300,
-                    height: 200,
-                    alignment: .center)
-                .border(.blue, width: 10)
-            
-            VStack {
-                Button("Button01", role: .none) { }.buttonStyle(.borderedProminent)
-                Button("Button01", role: .destructive) { }.buttonStyle(.borderedProminent)
-                Button("Button01", role: .cancel) { }.buttonStyle(.bordered)
+            VStack(spacing: 30) {
                 
-                // Totally customize button
-                Button {
-                    print("Print Something")
-                } label: {
-                    /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
-                        .padding(10)
-                        .foregroundStyle(.black)
-                        .background(.blue)
-                        .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/, style: /*@START_MENU_TOKEN@*/FillStyle()/*@END_MENU_TOKEN@*/)
-                }
+                // Top vstack
+                Text("Guess the Flag")
+                    .font(.largeTitle.weight(.bold))
+                    .foregroundStyle(.white)
                 
-                Button {
-                    print("Edit button was tapped")
-                } label: {
-                    Label("Edit", systemImage: "pencil")
-                        .padding()
+                // Middle vstack
+                VStack {
+                    Text("Tap the flag")
+                        .font(.subheadline.weight(.heavy))
                         .foregroundStyle(.white)
-                        .background(.red)
+                    
+                    Text(countries[randomIndex])
+                        .font(.largeTitle.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                    
+                    VStack(spacing: 30) {
+                        
+                        ForEach(0..<3) { index in
+                            Button {
+                                flagTapped(number: index)
+                            } label: {
+                                Image(countries[index])
+                                    .clipShape(.rect(cornerRadius: 15))
+                                    .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                            }
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 20)
+                    .background(.regularMaterial)
+                    .clipShape(.rect(cornerRadius: 20))
+                    .padding()
                 }
                 
-                Button("Edit", systemImage: "pencil") {
-                    print("Edit button was tapped")
-                }.tint(.black)
+                // Button of outter vstack
+                Text("Score: \(score)")
+                    .foregroundStyle(.white)
+                    .font(.title.bold())
             }
-            
         }
         .ignoresSafeArea()
-        
+        .alert(scoreTitle, isPresented: $showingAlert) {
+            Button("Continue", action: askQuestions)
+        } message: {
+            Text("""
+                 \(scoreMessage) \n
+                 Your score is \(score) \n
+                 """)
+        }
     }
+    
+    // MARK: - Functions -
+    func shouldRestart(restartAt targetRound: Int) {
+        if round > targetRound {
+            scoreTitle = "Game Over"
+            scoreMessage = "Your final score is \(score)"
+            round = 0
+            showingAlert = true
+        } else {
+            showingAlert = false
+        }
+    }
+    
+    func flagTapped(number: Int) {
+        if number == randomIndex {
+            scoreMessage = "That is indeed \(countries[randomIndex])"
+            scoreTitle = "Correct"
+            score += 1
+            
+        } else {
+            scoreMessage = "That's \(countries[number])"
+            scoreTitle = "Wrong"
+            score -= 1
+        }
+        
+        // Check new round
+        shouldRestart(restartAt: 7)
+        showingAlert = true
+        round += 1
+    }
+    
+    func askQuestions() {
+        countries.shuffle()
+        randomIndex = Int.random(in: 0..<3)
+    }
+    
 }
 
 #Preview {
