@@ -30,6 +30,20 @@ struct ContentView: View {
     ]
     
     @State private var randomIndex = Int.random(in: 0...2)
+    
+    // UI
+    struct FlagView: View {
+        
+        let country: String
+        
+        var body: some View {
+            Image(country)
+                .clipShape(.rect(cornerRadius: 15))
+                .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+        }
+    }
+    
+    // Modifier
 
     var body: some View {
         ZStack {
@@ -42,7 +56,8 @@ struct ContentView: View {
                 
                 // Top vstack
                 Text("Guess the Flag")
-                    .font(.largeTitle.weight(.bold))
+                    // .font(.largeTitle.weight(.bold))
+                    .customTitle()
                     .foregroundStyle(.white)
                 
                 // Middle vstack
@@ -61,9 +76,9 @@ struct ContentView: View {
                             Button {
                                 flagTapped(number: index)
                             } label: {
-                                Image(countries[index])
-                                    .clipShape(.rect(cornerRadius: 15))
-                                    .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+
+                                FlagView(country: countries[index])
+
                             }
                         }
                     }
